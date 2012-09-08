@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="app_name">MathGame</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_new">New</string>
+    <string name="title_activity_main">MathGame</string>
+    <string name="menu_settings">Settings</string>
+    <string name="button_label"/>
+    <string name="button_label_equal">=</string>
+
+</resources>
