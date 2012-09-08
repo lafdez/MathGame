@@ -52,7 +52,7 @@
             android:layout_height="32dp"
             android:layout_marginBottom="72dp"
             android:clickable="false"
-            android:text="@string/button_label" />
+            android:text="@string/button_label_equal" />
 
         <Button
             android:id="@+id/Button_result_row1"
@@ -166,7 +166,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginBottom="72dp"
-            android:text="@string/button_label" />
+            android:text="@string/button_label_equal" />
 
         <Button
             android:id="@+id/Button16"
@@ -278,7 +278,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginBottom="72dp"
-            android:text="@string/button_label" />
+            android:text="@string/button_label_equal" />
 
         <Button
             android:id="@+id/Button02"
@@ -297,7 +297,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginBottom="72dp"
-            android:text="@string/button_label" />
+            android:text="@string/button_label_equal" />
 
         <Button
             android:id="@+id/Button39"
@@ -312,7 +312,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginBottom="72dp"
-            android:text="@string/button_label" />
+            android:text="@string/button_label_equal" />
 
         <Button
             android:id="@+id/Button37"
@@ -327,7 +327,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginBottom="72dp"
-            android:text="@string/button_label" />
+            android:text="@string/button_label_equal" />
 
         <Button
             android:id="@+id/Button35"
