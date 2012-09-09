@@ -1,11 +1,20 @@
 <resources>
 
     <string name="app_name">MathGame</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_new">New</string>
     <string name="title_activity_main">MathGame</string>
     <string name="menu_settings">Settings</string>
     <string name="button_label"/>
     <string name="button_label_equal">=</string>
+    <string name="button_label_plus">+</string>
+    <string name="button_label_minus">-</string>
+    <string name="button_label_times">×</string>
+    <string name="button_label_division">÷</string>
+    <string-array name="array_signs">
+        <item >+</item>
+        <item >-</item>
+        <item >×</item>
+    </string-array>
+    <string name="button_label_sign_init">#</string>
 
 </resources>
