@@ -59,27 +59,6 @@ public class MainActivity extends Activity {
     }
     
     /**
-     * This method will check whether or not a Character is an operator.
-     * @param ch the Character to check.
-     * @return true if ch is an operator, false otherwise.
-     */
-    private Boolean isAnOperator(Character ch) {
-    	Resources res = getResources();
-    	
-    	String[] strArray = res.getStringArray(R.array.array_operators);
-    	for (int i=0 ; i<strArray.length ; i++) {
-    		if (strArray[i].contains(ch.toString())) {
-    			return true;
-    		}
-    	}
-    	if (ch.toString() == res.getString(R.string.button_label_operator_init)) {
-    		return true;
-    	}
-    	
-    	return false;
-    }
-    
-    /**
      * This method will return a random Integer between 0 and 9.
      * @return an Integer between 0 and 9.
      */
@@ -185,13 +164,14 @@ public class MainActivity extends Activity {
     
     
     /**
-     * 
-     * @param digits
-     * @param signs
-     * @return
+     * This method will do the math.
+     * @param digits the digits it'll use to do the math.
+     * @param operators the operators it'll use to do the math.
+     * @return an ArrayList of Integer with the results. First the results for
+     * the rows (indexes 0, 1 and 2) then the columns (indexes 3, 4 and 5).
      */
     private ArrayList<Integer> doTheMath(ArrayList<ArrayList<Integer>> digits, 
-    		ArrayList<ArrayList<Character>> signs) {
+    		ArrayList<ArrayList<Character>> operators) {
     	
     	ArrayList<Integer> results = new ArrayList<Integer>();
     	Integer result = Integer.valueOf(0);
@@ -203,13 +183,13 @@ public class MainActivity extends Activity {
 	  			result = list.get(0);
 	    		for (int j=0 ; j<list.size()-1 ; j++) {
 	    			Integer m = list.get(j+1);
-	    			if (signs.get(i).get(j) == '+') {
+	    			if (operators.get(i).get(j) == '+') {
 	    				result += m; 
 	    			}
-	    			else if (signs.get(i).get(j) == '-') {
+	    			else if (operators.get(i).get(j) == '-') {
 	    				result -= m;
 	    			}
-	    			else if (signs.get(i).get(j) == '×') {
+	    			else if (operators.get(i).get(j) == '×') {
 	    				result *= m;
 	    			}
 	    		}
@@ -226,17 +206,17 @@ public class MainActivity extends Activity {
     		if (list.size() != 0) {
 	    		for (int j=0 ; j<list.size() ; j++) {
 	    			Integer m = list.get(j);
-	    			if (signs.get(i-1).get(j) == '+') {
+	    			if (operators.get(i-1).get(j) == '+') {
 	    				result = columnsResults.get(j);
 	    				result += m;
 	    				columnsResults.set(j, result);
 	    			}
-	    			else if (signs.get(i-1).get(j) == '-') {
+	    			else if (operators.get(i-1).get(j) == '-') {
 	    				result = columnsResults.get(j);
 	    				result -= m;
 	    				columnsResults.set(j, result);
 	    			}
-	    			else if (signs.get(i-1).get(j) == '×') {
+	    			else if (operators.get(i-1).get(j) == '×') {
 	    				result = columnsResults.get(j);
 	    				result *= m;
 	    				columnsResults.set(j, result);
