@@ -10,11 +10,11 @@
     <string name="button_label_minus">-</string>
     <string name="button_label_times">×</string>
     <string name="button_label_division">÷</string>
-    <string-array name="array_signs">
+    <string-array name="array_operators">
         <item >+</item>
         <item >-</item>
         <item >×</item>
     </string-array>
-    <string name="button_label_sign_init">#</string>
+    <string name="button_label_operator_init">#</string>
 
 </resources>

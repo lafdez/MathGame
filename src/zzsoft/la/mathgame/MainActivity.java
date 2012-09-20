@@ -14,13 +14,13 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
 /**
- * Main activity
+ * Main activity.
  * @author Luis Ángel Fernández Fernández
  */
 public class MainActivity extends Activity {
 
 	private ArrayList<ArrayList<Integer>> m_randomDigits;
-	private ArrayList<ArrayList<Character>> m_randomSigns;
+	private ArrayList<ArrayList<Character>> m_randomOperators;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,19 +38,55 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    @Override
+    protected void onDestroy() {
+    	clearMemberLists();
+    }
+    
     /**
-     * This method will return one of the signs in the array array_signs
-     * @see array_signs
-     * @return a Character with the random sign from array_signs
+     * This method will return one of the operators in the array array_operators.
+     * @see array_operators
+     * @return a Character with the random sign from array_operators.
      */
-    private String getASign() {    	  	
+    private String getAnOperator() {    	  	
     	Resources res = getResources();
     	Random randomGenerator = getRandomizeGenerator();
     	
-    	String[] strArray = res.getStringArray(R.array.array_signs);
-    	int randomNumber = randomGenerator.nextInt(strArray.length - 1);
+    	String[] strArray = res.getStringArray(R.array.array_operators);
+    	int randomNumber = randomGenerator.nextInt(strArray.length);
     	
     	return strArray[randomNumber];
+    }
+    
+    /**
+     * This method will check whether or not a Character is an operator.
+     * @param ch the Character to check.
+     * @return true if ch is an operator, false otherwise.
+     */
+    private Boolean isAnOperator(Character ch) {
+    	Resources res = getResources();
+    	
+    	String[] strArray = res.getStringArray(R.array.array_operators);
+    	for (int i=0 ; i<strArray.length ; i++) {
+    		if (strArray[i].contains(ch.toString())) {
+    			return true;
+    		}
+    	}
+    	if (ch.toString() == res.getString(R.string.button_label_operator_init)) {
+    		return true;
+    	}
+    	
+    	return false;
+    }
+    
+    /**
+     * This method will return a random Integer between 0 and 9.
+     * @return an Integer between 0 and 9.
+     */
+    private Integer getADigit() {
+    	Random randomGenerator = getRandomizeGenerator();
+    	
+    	return randomGenerator.nextInt(10);
     }
     
     /**
@@ -58,11 +94,12 @@ public class MainActivity extends Activity {
      */
     private void initializeBoard() {
       TableLayout tl = (TableLayout)findViewById(R.id.MainLayout);
-      clearMemberLists();
+      ArrayList<ArrayList<Character>> listOfOperators= new ArrayList<ArrayList<Character>>();
+      ArrayList<ArrayList<Integer>> listOfDigits = new ArrayList<ArrayList<Integer>>();
       for (int i=0 ; i<tl.getChildCount() ; i++) {
       	LinearLayout ll = (LinearLayout)tl.getChildAt(i);
-    		ArrayList<Integer> listOfDigits = new ArrayList<Integer>();
-    		ArrayList<Character> listOfSigns = new ArrayList<Character>();
+    		ArrayList<Character> rowOfOperators = new ArrayList<Character>();
+    		ArrayList<Integer> rowOfDigits = new ArrayList<Integer>();
       	for (int j=0 ; j<ll.getChildCount() ; j++) {
       		Button button = (Button)ll.getChildAt(j);
       		Resources res = getResources();
@@ -70,25 +107,29 @@ public class MainActivity extends Activity {
       			// The button contains a sign label
       			CharSequence charSeq = button.getText();
       			String str = charSeq.toString();
-      			if (str == res.getString(R.string.button_label_sign_init)) {
-      				String strAux = getASign();
-      				listOfSigns.add(strAux.charAt(0));
+      			if (str == res.getString(R.string.button_label_operator_init)) {
+      				String strAux = getAnOperator();
+      				rowOfOperators.add(strAux.charAt(0));
       				button.setText(strAux);
       			}
       		}
-      		else {
-      			// The button will contain a digit entered by the user.
-      			// Let's get a random number that we'll use to do the math.
-      			Random random = getRandomizeGenerator();
-      			listOfDigits.add(random.nextInt(9));
+      		else { // isClickable()
+      			// The button will contain a number, so let's generate the number
+      			// that will be part of the solution (at least one of them if there
+      			// is more than one).
+      			rowOfDigits.add(getADigit());
       		}
-      	}
-      	m_randomDigits.add(listOfDigits);
-      	m_randomSigns.add(listOfSigns);
-      }
+      	} // for j
+      	listOfOperators.add(rowOfOperators);
+      	listOfDigits.add(rowOfDigits);
+      } // for i
+      
       // Here I'll have a list with the digits
       // and a list with the signs I'll need to
       // do the math.
+      
+      // Let's fill the result cells.
+      fillResultCells(listOfDigits, listOfOperators);
     }
     
     /**
@@ -105,6 +146,30 @@ public class MainActivity extends Activity {
     }
     
     /**
+     * This method will fill the buttons that will contain the results with the 
+     * results values calculated.
+     * @param digits the digits that will be part of the calculus.
+     * @param operators the signs/operators used to do the math.
+     */
+    private void fillResultCells(ArrayList<ArrayList<Integer>> digits, 
+    		ArrayList<ArrayList<Character>> operators) {
+    	
+    	ArrayList<Integer> results = doTheMath(digits, operators);
+    	Button resultButton = (Button)findViewById(R.id.Button_result_row1);
+    	resultButton.setText(results.get(0).toString());
+    	resultButton = (Button)findViewById(R.id.Button_result_row2);
+    	resultButton.setText(results.get(1).toString());
+    	resultButton = (Button)findViewById(R.id.Button_result_row3);
+    	resultButton.setText(results.get(2).toString());
+    	resultButton = (Button)findViewById(R.id.Button_result_column1);
+    	resultButton.setText(results.get(3).toString());
+    	resultButton = (Button)findViewById(R.id.Button_result_column2);
+    	resultButton.setText(results.get(4).toString());
+    	resultButton = (Button)findViewById(R.id.Button_result_column3);
+    	resultButton.setText(results.get(5).toString());
+    }
+    
+    /**
      * A method to clear member lists.
      */
     private void clearMemberLists() {    	
@@ -112,9 +177,76 @@ public class MainActivity extends Activity {
       	m_randomDigits.get(k).clear();
       } 
       m_randomDigits.clear();
-      for (int k=0 ; k<m_randomSigns.size() ; k++) {
-      	m_randomSigns.get(k).clear();
+      for (int k=0 ; k<m_randomOperators.size() ; k++) {
+      	m_randomOperators.get(k).clear();
       } 
-      m_randomSigns.clear();
+      m_randomOperators.clear();
+    }
+    
+    
+    /**
+     * 
+     * @param digits
+     * @param signs
+     * @return
+     */
+    private ArrayList<Integer> doTheMath(ArrayList<ArrayList<Integer>> digits, 
+    		ArrayList<ArrayList<Character>> signs) {
+    	
+    	ArrayList<Integer> results = new ArrayList<Integer>();
+    	Integer result = Integer.valueOf(0);
+    	
+    	// First the rows
+    	for (int i=0 ; i<digits.size() ; i++) {
+    		ArrayList<Integer> list = digits.get(i);
+    		if (list.size() != 0) {
+	  			result = list.get(0);
+	    		for (int j=0 ; j<list.size()-1 ; j++) {
+	    			Integer m = list.get(j+1);
+	    			if (signs.get(i).get(j) == '+') {
+	    				result += m; 
+	    			}
+	    			else if (signs.get(i).get(j) == '-') {
+	    				result -= m;
+	    			}
+	    			else if (signs.get(i).get(j) == '×') {
+	    				result *= m;
+	    			}
+	    		}
+	    		results.add(result);
+    		}
+    	}
+    	// Now the columns
+    	ArrayList<Integer> columnsResults = new ArrayList<Integer>(3);
+  		columnsResults.add(digits.get(0).get(0));
+  		columnsResults.add(digits.get(0).get(1));
+  		columnsResults.add(digits.get(0).get(2));
+    	for (int i=1 ; i<digits.size()-1 ; i++) {
+    		ArrayList<Integer> list = digits.get(i);
+    		if (list.size() != 0) {
+	    		for (int j=0 ; j<list.size() ; j++) {
+	    			Integer m = list.get(j);
+	    			if (signs.get(i-1).get(j) == '+') {
+	    				result = columnsResults.get(j);
+	    				result += m;
+	    				columnsResults.set(j, result);
+	    			}
+	    			else if (signs.get(i-1).get(j) == '-') {
+	    				result = columnsResults.get(j);
+	    				result -= m;
+	    				columnsResults.set(j, result);
+	    			}
+	    			else if (signs.get(i-1).get(j) == '×') {
+	    				result = columnsResults.get(j);
+	    				result *= m;
+	    				columnsResults.set(j, result);
+	    			}
+	    		}
+    		}
+    	}
+    	
+    	results.addAll(columnsResults);
+    	
+    	return results;
     }
 }
