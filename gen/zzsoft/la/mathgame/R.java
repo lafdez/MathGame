@@ -91,6 +91,7 @@ public final class R {
         public static final int button_label_times=0x7f050008;
         public static final int menu_new=0x7f050001;
         public static final int menu_settings=0x7f050003;
+        public static final int on_click=0x7f05000b;
         public static final int title_activity_main=0x7f050002;
     }
     public static final class style {

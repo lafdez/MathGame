@@ -16,5 +16,6 @@
         <item >×</item>
     </string-array>
     <string name="button_label_operator_init">#</string>
+    <string name="on_click">onClick</string>
 
 </resources>

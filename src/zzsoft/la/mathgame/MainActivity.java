@@ -3,12 +3,15 @@ package zzsoft.la.mathgame;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Random;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -43,6 +46,16 @@ public class MainActivity extends Activity {
     	clearMemberLists();
     }
     
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	if (item.getItemId() == R.id.menu_new) {
+    		clearMemberLists();
+    		initializeBoard();
+    	}
+    	
+    	return super.onOptionsItemSelected(item);
+    }
+    
     /**
      * This method will return one of the operators in the array array_operators.
      * @see array_operators
@@ -71,7 +84,7 @@ public class MainActivity extends Activity {
     /**
      * This method will initialize the board.
      */
-    private void initializeBoard() {
+    public void initializeBoard() {
       TableLayout tl = (TableLayout)findViewById(R.id.MainLayout);
       ArrayList<ArrayList<Character>> listOfOperators= new ArrayList<ArrayList<Character>>();
       ArrayList<ArrayList<Integer>> listOfDigits = new ArrayList<ArrayList<Integer>>();
@@ -81,12 +94,12 @@ public class MainActivity extends Activity {
     		ArrayList<Integer> rowOfDigits = new ArrayList<Integer>();
       	for (int j=0 ; j<ll.getChildCount() ; j++) {
       		Button button = (Button)ll.getChildAt(j);
-      		Resources res = getResources();
+      		//Resources res = getResources();
       		if (!button.isClickable()) {
       			// The button contains a sign label
       			CharSequence charSeq = button.getText();
       			String str = charSeq.toString();
-      			if (str == res.getString(R.string.button_label_operator_init)) {
+      			if (str != null && !str.isEmpty() && isAnOperator(str.charAt(0))) {
       				String strAux = getAnOperator();
       				rowOfOperators.add(strAux.charAt(0));
       				button.setText(strAux);
@@ -109,6 +122,10 @@ public class MainActivity extends Activity {
       
       // Let's fill the result cells.
       fillResultCells(listOfDigits, listOfOperators);
+      if (m_randomDigits == null) m_randomDigits = new ArrayList<ArrayList<Integer>>();
+      m_randomDigits.addAll(listOfDigits);
+      if (m_randomOperators == null) m_randomOperators = new ArrayList<ArrayList<Character>>();
+      m_randomOperators.addAll(listOfOperators);
     }
     
     /**
@@ -151,17 +168,47 @@ public class MainActivity extends Activity {
     /**
      * A method to clear member lists.
      */
-    private void clearMemberLists() {    	
-      for (int k=0 ; k<m_randomDigits.size() ; k++) {
-      	m_randomDigits.get(k).clear();
-      } 
-      m_randomDigits.clear();
-      for (int k=0 ; k<m_randomOperators.size() ; k++) {
-      	m_randomOperators.get(k).clear();
-      } 
-      m_randomOperators.clear();
+    private void clearMemberLists() {    
+    	if (m_randomDigits != null) {
+    		Iterator<ArrayList<Integer>> itr = m_randomDigits.iterator();
+    		while (itr.hasNext()) {
+    			Iterator<ArrayList<Integer>> itrAux = itr;
+    	    itr.next();
+    	    itrAux.remove();
+    		}
+    		m_randomDigits = null;
+    	}
+    	if (m_randomOperators != null) {
+    		Iterator<ArrayList<Character>> itr = m_randomOperators.iterator();
+    		while (itr.hasNext()) {
+    			Iterator<ArrayList<Character>> itrAux = itr;
+    	    itr.next();
+    	    itrAux.remove();
+    		}
+    		m_randomOperators = null;
+    	}
     }
     
+    /**
+     * This method will check whether or not a Character is an operator.
+     * @param ch the Character to check.
+     * @return true if ch is an operator, false otherwise.
+     */
+    private Boolean isAnOperator(Character ch) {
+    	Resources res = getResources();
+    	
+    	String[] strArray = res.getStringArray(R.array.array_operators);
+    	for (int i=0 ; i<strArray.length ; i++) {
+    		if (strArray[i].contains(ch.toString())) {
+    			return true;
+    		}
+    	}
+    	if (ch == res.getString(R.string.button_label_operator_init).charAt(0)) {
+    		return true;
+    	}
+    	
+    	return false;
+    }
     
     /**
      * This method will do the math.
@@ -228,5 +275,9 @@ public class MainActivity extends Activity {
     	results.addAll(columnsResults);
     	
     	return results;
+    }
+    
+    public void onClick(View v) {
+    	
     }
 }
