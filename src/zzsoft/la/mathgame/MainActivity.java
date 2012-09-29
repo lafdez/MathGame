@@ -115,6 +115,7 @@ public class MainActivity extends Activity {
       			// that will be part of the solution (at least one of them if there
       			// is more than one).
       			rowOfDigits.add(getADigit());
+      			button.setText("");
       		}
       	} // for j
       	listOfOperators.add(rowOfOperators);
