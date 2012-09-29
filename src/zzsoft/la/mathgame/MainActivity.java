@@ -8,7 +8,9 @@ import java.util.Random;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.PorterDuff.Mode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,12 +26,15 @@ public class MainActivity extends Activity {
 
 	private ArrayList<ArrayList<Integer>> m_randomDigits;
 	private ArrayList<ArrayList<Character>> m_randomOperators;
+	private ArrayList<Integer> m_results;
+	private Button m_buttonClicked;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        m_buttonClicked = null;
         
         // I'll initialize the board.
         initializeBoard();
@@ -129,6 +134,36 @@ public class MainActivity extends Activity {
     }
     
     /**
+     * 
+     * @return
+     */
+    public ArrayList<ArrayList<Integer>> getNumbersFromBoard() {
+      TableLayout tl = (TableLayout)findViewById(R.id.MainLayout);
+      ArrayList<ArrayList<Integer>> listOfDigits = new ArrayList<ArrayList<Integer>>();
+      for (int i=0 ; i<tl.getChildCount() ; i++) {
+      	LinearLayout ll = (LinearLayout)tl.getChildAt(i);
+    		ArrayList<Integer> rowOfDigits = new ArrayList<Integer>();
+      	for (int j=0 ; j<ll.getChildCount() ; j++) {
+      		Button button = (Button)ll.getChildAt(j);
+      		//Resources res = getResources();
+      		if (button.isClickable()) {
+      			CharSequence buttonText = button.getText();
+      			if ((buttonText != null) && (buttonText.length() > 0)) {
+      				String buttonTextAsString = buttonText.toString();
+      				rowOfDigits.add(Integer.parseInt(buttonTextAsString));
+      			}
+      			else {
+      				rowOfDigits.add(Integer.valueOf(0));
+      			}
+      		}
+      	} // for j
+      	listOfDigits.add(rowOfDigits);
+      } // for i
+
+      return listOfDigits;
+    }
+    
+    /**
      * This method will return a initialized random number generator.
      * @return A random number generator.
      */
@@ -150,19 +185,19 @@ public class MainActivity extends Activity {
     private void fillResultCells(ArrayList<ArrayList<Integer>> digits, 
     		ArrayList<ArrayList<Character>> operators) {
     	
-    	ArrayList<Integer> results = doTheMath(digits, operators);
+    	m_results = doTheMath(digits, operators);
     	Button resultButton = (Button)findViewById(R.id.Button_result_row1);
-    	resultButton.setText(results.get(0).toString());
+    	resultButton.setText(m_results.get(0).toString());
     	resultButton = (Button)findViewById(R.id.Button_result_row2);
-    	resultButton.setText(results.get(1).toString());
+    	resultButton.setText(m_results.get(1).toString());
     	resultButton = (Button)findViewById(R.id.Button_result_row3);
-    	resultButton.setText(results.get(2).toString());
+    	resultButton.setText(m_results.get(2).toString());
     	resultButton = (Button)findViewById(R.id.Button_result_column1);
-    	resultButton.setText(results.get(3).toString());
+    	resultButton.setText(m_results.get(3).toString());
     	resultButton = (Button)findViewById(R.id.Button_result_column2);
-    	resultButton.setText(results.get(4).toString());
+    	resultButton.setText(m_results.get(4).toString());
     	resultButton = (Button)findViewById(R.id.Button_result_column3);
-    	resultButton.setText(results.get(5).toString());
+    	resultButton.setText(m_results.get(5).toString());
     }
     
     /**
@@ -277,7 +312,78 @@ public class MainActivity extends Activity {
     	return results;
     }
     
+    /**
+     * On click event handler.
+     * @param v the view sending the event.
+     */
     public void onClick(View v) {
-    	
+    	m_buttonClicked = (Button)v;
+    	Intent intent = new Intent(this, KeypadActivity.class);
+    	this.startActivityForResult(intent, 2);
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 2){
+        	String keyPressed = data.getExtras().get("key_pressed").toString();
+        	m_buttonClicked.setText(keyPressed);
+        	ArrayList<ArrayList<Integer>> numbers = new ArrayList<ArrayList<Integer>>();
+        	numbers = getNumbersFromBoard();
+        	ArrayList<Integer> results = doTheMath(numbers, m_randomOperators);
+        	// So now I have the results, let's compare them with the randomly
+        	// generated ones.
+        	Button resultButton = (Button)findViewById(R.id.Button_result_row1);
+        	
+        	int errorColor = getResources().getColor(R.color.error_color);
+        	int okColor = getResources().getColor(R.color.ok_color);
+        	if (m_results.get(0) == results.get(0)) {
+        		resultButton.getBackground().setColorFilter(okColor, Mode.MULTIPLY);
+        	}
+        	else {
+        		resultButton.getBackground().setColorFilter(errorColor, Mode.MULTIPLY);
+        	}
+        	
+        	resultButton = (Button)findViewById(R.id.Button_result_row2);
+        	if (m_results.get(1) == results.get(1)) {
+        		resultButton.getBackground().setColorFilter(okColor, Mode.MULTIPLY);
+        	}
+        	else {
+        		resultButton.getBackground().setColorFilter(errorColor, Mode.MULTIPLY);
+        	}
+        	
+        	resultButton = (Button)findViewById(R.id.Button_result_row3);
+        	if (m_results.get(2) == results.get(2)) {
+        		resultButton.getBackground().setColorFilter(okColor, Mode.MULTIPLY);
+        	}
+        	else {
+        		resultButton.getBackground().setColorFilter(errorColor, Mode.MULTIPLY);
+        	}
+
+        	resultButton = (Button)findViewById(R.id.Button_result_column1);
+        	if (m_results.get(3) == results.get(3)) {
+        		resultButton.getBackground().setColorFilter(okColor, Mode.MULTIPLY);
+        	}
+        	else {
+        		resultButton.getBackground().setColorFilter(errorColor, Mode.MULTIPLY);
+        	}
+
+        	resultButton = (Button)findViewById(R.id.Button_result_column2);
+        	if (m_results.get(4) == results.get(4)) {
+        		resultButton.getBackground().setColorFilter(okColor, Mode.MULTIPLY);
+        	}
+        	else {
+        		resultButton.getBackground().setColorFilter(errorColor, Mode.MULTIPLY);
+        	}
+
+        	resultButton = (Button)findViewById(R.id.Button_result_column3);
+        	if (m_results.get(5) == results.get(5)) {
+        		resultButton.getBackground().setColorFilter(okColor, Mode.MULTIPLY);
+        	}
+        	else {
+        		resultButton.getBackground().setColorFilter(errorColor, Mode.MULTIPLY);
+        	}
+        }
+ 
     }
 }

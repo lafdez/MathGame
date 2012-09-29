@@ -32,6 +32,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginBottom="72dp"
+            android:onClick="@string/on_click"
             android:text="@string/button_label"
             android:textSize="@dimen/buttons_text_size" />
 
@@ -49,6 +50,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginBottom="72dp"
+            android:onClick="@string/on_click"
             android:text="@string/button_label"
             android:textSize="@dimen/buttons_text_size" />
 
@@ -152,6 +154,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginBottom="72dp"
+            android:onClick="@string/on_click"
             android:text="@string/button_label"
             android:textSize="@dimen/buttons_text_size" />
 
@@ -169,6 +172,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginBottom="72dp"
+            android:onClick="@string/on_click"
             android:text="@string/button_label"
             android:textSize="@dimen/buttons_text_size" />
 
@@ -186,6 +190,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginBottom="72dp"
+            android:onClick="@string/on_click"
             android:text="@string/button_label"
             android:textSize="@dimen/buttons_text_size" />
 
@@ -289,6 +294,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginBottom="72dp"
+            android:onClick="@string/on_click"
             android:text="@string/button_label"
             android:textSize="@dimen/buttons_text_size" />
 
@@ -306,6 +312,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginBottom="72dp"
+            android:onClick="@string/on_click"
             android:text="@string/button_label"
             android:textSize="@dimen/buttons_text_size" />
 
@@ -323,6 +330,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginBottom="72dp"
+            android:onClick="@string/on_click"
             android:text="@string/button_label"
             android:textSize="@dimen/buttons_text_size" />
 

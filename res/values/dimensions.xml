@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="buttons_text_size">11dp</dimen>   
+    <dimen name="buttons_text_size">11dp</dimen>
+    <dimen name="keypad_buttons_text_size">44dp</dimen>
+    <dimen name="keypad_padding">42dp</dimen>   
 </resources>

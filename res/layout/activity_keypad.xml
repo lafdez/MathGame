@@ -1,0 +1,162 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MainLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:paddingTop="@dimen/keypad_padding"
+    android:scrollbarAlwaysDrawVerticalTrack="false" >
+
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_weight="0.25" >
+
+        <Button
+            android:id="@+id/ButtonOne"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="72dp"
+            android:layout_weight="0.33"
+            android:onClick="@string/on_click_keypad"
+            android:text="@string/number_one"
+            android:textSize="@dimen/keypad_buttons_text_size" />
+
+        <Button
+            android:id="@+id/ButtonTwo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="72dp"
+            android:layout_weight="0.33"
+            android:onClick="@string/on_click_keypad"
+            android:text="@string/number_two"
+            android:textSize="@dimen/keypad_buttons_text_size" />
+
+        <Button
+            android:id="@+id/ButtonThree"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="72dp"
+            android:layout_weight="0.33"
+            android:onClick="@string/on_click_keypad"
+            android:text="@string/number_three"
+            android:textSize="@dimen/keypad_buttons_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_weight="0.25" >
+
+        <Button
+            android:id="@+id/ButtonFour"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="72dp"
+            android:layout_weight="0.33"
+            android:onClick="@string/on_click_keypad"
+            android:text="@string/number_four"
+            android:textSize="@dimen/keypad_buttons_text_size" />
+
+        <Button
+            android:id="@+id/ButtonFive"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="72dp"
+            android:layout_weight="0.33"
+            android:onClick="@string/on_click_keypad"
+            android:text="@string/number_five"
+            android:textSize="@dimen/keypad_buttons_text_size"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/ButtonSix"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="72dp"
+            android:layout_weight="0.33"
+            android:onClick="@string/on_click_keypad"
+            android:text="@string/number_six"
+            android:textSize="@dimen/keypad_buttons_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_weight="0.25" >
+
+        <Button
+            android:id="@+id/ButtonSeven"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="72dp"
+            android:layout_weight="0.33"
+            android:onClick="@string/on_click_keypad"
+            android:text="@string/number_seven"
+            android:textSize="@dimen/keypad_buttons_text_size" />
+
+        <Button
+            android:id="@+id/ButtonEight"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="72dp"
+            android:layout_weight="0.33"
+            android:onClick="@string/on_click_keypad"
+            android:text="@string/number_eight"
+            android:textSize="@dimen/keypad_buttons_text_size" />
+
+        <Button
+            android:id="@+id/ButtonNine"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="72dp"
+            android:layout_weight="0.33"
+            android:onClick="@string/on_click_keypad"
+            android:text="@string/number_nine"
+            android:textSize="@dimen/keypad_buttons_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_weight="0.25" >
+
+        <Button
+            android:id="@+id/ButtonEmpty1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="72dp"
+            android:layout_weight="0.33"
+            android:clickable="false"
+            android:text="@string/button_label_operator_init"
+            android:textSize="@dimen/buttons_text_size"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/ButtonZero"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="72dp"
+            android:layout_weight="0.33"
+            android:onClick="@string/on_click_keypad"
+            android:text="@string/number_zero"
+            android:textSize="@dimen/keypad_buttons_text_size"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/ButtonEmpty2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="72dp"
+            android:layout_weight="0.33"
+            android:clickable="false"
+            android:text="@string/button_label_operator_init"
+            android:textSize="@dimen/buttons_text_size"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+</TableLayout>
