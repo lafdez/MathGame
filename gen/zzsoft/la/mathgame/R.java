@@ -89,9 +89,8 @@ public final class R {
         public static final int Button_value11=0x7f0a000d;
         public static final int Button_value13=0x7f0a0011;
         public static final int MainLayout=0x7f0a0000;
-        public static final int menu_new=0x7f0a003f;
-        public static final int menu_settings=0x7f0a003e;
-        public static final int menu_solve=0x7f0a0040;
+        public static final int menu_new=0x7f0a003e;
+        public static final int menu_solve=0x7f0a003f;
     }
     public static final class layout {
         public static final int activity_keypad=0x7f030000;
