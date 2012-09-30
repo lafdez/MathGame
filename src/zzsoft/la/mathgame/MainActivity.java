@@ -34,18 +34,10 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        m_buttonClicked = null;
-        m_resultButtonsIDs = new ArrayList<Integer>();
-        m_resultButtonsIDs.add(R.id.Button_result_row1);
-        m_resultButtonsIDs.add(R.id.Button_result_row2);
-        m_resultButtonsIDs.add(R.id.Button_result_row3);
-        m_resultButtonsIDs.add(R.id.Button_result_column1);
-        m_resultButtonsIDs.add(R.id.Button_result_column2);
-        m_resultButtonsIDs.add(R.id.Button_result_column3);
         
         // I'll initialize the board.
         initializeBoard();
+        checkResults(null);
     }
 
     @Override
@@ -64,9 +56,40 @@ public class MainActivity extends Activity {
     	if (item.getItemId() == R.id.menu_new) {
     		clearMemberLists();
     		initializeBoard();
+    		checkResults(null);
     	}
-    	
+    	if (item.getItemId() == R.id.menu_solve) {
+    		fillBoardWithSolution();
+    	}
     	return super.onOptionsItemSelected(item);
+    }
+    
+    /**
+     * 
+     */
+    private void fillBoardWithSolution() {
+      TableLayout tl = (TableLayout)findViewById(R.id.MainLayout);
+      int row = 0, column = 0;
+      for (int i=0 ; i<tl.getChildCount() ; i++) {
+      	LinearLayout ll = (LinearLayout)tl.getChildAt(i);
+      	for (int j=0 ; j<ll.getChildCount() ; j++) {
+      		Button button = (Button)ll.getChildAt(j);
+      		//Resources res = getResources();
+      		if (button.isClickable()) {
+      			Integer number = m_randomDigits.get(row).get(column);
+      			button.setText(number.toString());
+      			if (column == m_randomDigits.get(row).size() - 1) {
+      				row += 2;
+      				column = 0;
+      			}
+      			else {
+      				++column;
+      			}
+      		}
+      	} // for j
+      } // for i
+    	// This will set all result buttons background to ok_color
+    	checkResults(m_results);
     }
     
     /**
@@ -98,6 +121,15 @@ public class MainActivity extends Activity {
      * This method will initialize the board.
      */
     public void initializeBoard() {
+      m_buttonClicked = null;
+      m_resultButtonsIDs = new ArrayList<Integer>();
+      m_resultButtonsIDs.add(R.id.Button_result_row1);
+      m_resultButtonsIDs.add(R.id.Button_result_row2);
+      m_resultButtonsIDs.add(R.id.Button_result_row3);
+      m_resultButtonsIDs.add(R.id.Button_result_column1);
+      m_resultButtonsIDs.add(R.id.Button_result_column2);
+      m_resultButtonsIDs.add(R.id.Button_result_column3);
+    	
       TableLayout tl = (TableLayout)findViewById(R.id.MainLayout);
       ArrayList<ArrayList<Character>> listOfOperators= new ArrayList<ArrayList<Character>>();
       ArrayList<ArrayList<Integer>> listOfDigits = new ArrayList<ArrayList<Integer>>();
@@ -224,6 +256,14 @@ public class MainActivity extends Activity {
     		}
     		m_randomOperators = null;
     	}
+    	if (m_results != null) {
+    		m_results.clear();
+    		m_results = null;
+    	}
+    	if (m_resultButtonsIDs != null) {
+    		m_resultButtonsIDs.clear();
+    		m_resultButtonsIDs = null;
+    	}
     }
     
     /**
@@ -335,20 +375,22 @@ public class MainActivity extends Activity {
         	ArrayList<Integer> results = doTheMath(numbers, m_randomOperators);
         	// So now I have the results, let's compare them with the randomly
         	// generated ones.
-        	
-        	int errorColor = getResources().getColor(R.color.error_color);
-        	int okColor = getResources().getColor(R.color.ok_color);
-        	
-        	for (int i=0 ; i<m_resultButtonsIDs.size() ; i++) {
-          	Button resultButton = (Button)findViewById(m_resultButtonsIDs.get(i));
-          	if (m_results.get(i) == results.get(i)) {
-          		resultButton.getBackground().setColorFilter(okColor, Mode.MULTIPLY);
-          	}
-          	else {
-          		resultButton.getBackground().setColorFilter(errorColor, Mode.MULTIPLY);
-          	}        		
-        	}
+        	checkResults(results);
         }
- 
+    }
+    
+    private void checkResults(ArrayList<Integer> results) {
+    	int errorColor = getResources().getColor(R.color.error_color);
+    	int okColor = getResources().getColor(R.color.ok_color);
+    	
+    	for (int i=0 ; i<m_resultButtonsIDs.size() ; i++) {
+      	Button resultButton = (Button)findViewById(m_resultButtonsIDs.get(i));
+      	if (results != null && m_results.get(i) == results.get(i)) {
+      		resultButton.getBackground().setColorFilter(okColor, Mode.MULTIPLY);
+      	}
+      	else {
+      		resultButton.getBackground().setColorFilter(errorColor, Mode.MULTIPLY);
+      	}        		
+    	}
     }
 }
