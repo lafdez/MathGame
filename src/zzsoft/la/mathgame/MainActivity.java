@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
 	private ArrayList<ArrayList<Integer>> m_randomDigits;
 	private ArrayList<ArrayList<Character>> m_randomOperators;
 	private ArrayList<Integer> m_results;
+	private ArrayList<Integer> m_resultButtonsIDs;
 	private Button m_buttonClicked;
 	
     @Override
@@ -35,6 +36,13 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         m_buttonClicked = null;
+        m_resultButtonsIDs = new ArrayList<Integer>();
+        m_resultButtonsIDs.add(R.id.Button_result_row1);
+        m_resultButtonsIDs.add(R.id.Button_result_row2);
+        m_resultButtonsIDs.add(R.id.Button_result_row3);
+        m_resultButtonsIDs.add(R.id.Button_result_column1);
+        m_resultButtonsIDs.add(R.id.Button_result_column2);
+        m_resultButtonsIDs.add(R.id.Button_result_column3);
         
         // I'll initialize the board.
         initializeBoard();
@@ -187,18 +195,11 @@ public class MainActivity extends Activity {
     		ArrayList<ArrayList<Character>> operators) {
     	
     	m_results = doTheMath(digits, operators);
-    	Button resultButton = (Button)findViewById(R.id.Button_result_row1);
-    	resultButton.setText(m_results.get(0).toString());
-    	resultButton = (Button)findViewById(R.id.Button_result_row2);
-    	resultButton.setText(m_results.get(1).toString());
-    	resultButton = (Button)findViewById(R.id.Button_result_row3);
-    	resultButton.setText(m_results.get(2).toString());
-    	resultButton = (Button)findViewById(R.id.Button_result_column1);
-    	resultButton.setText(m_results.get(3).toString());
-    	resultButton = (Button)findViewById(R.id.Button_result_column2);
-    	resultButton.setText(m_results.get(4).toString());
-    	resultButton = (Button)findViewById(R.id.Button_result_column3);
-    	resultButton.setText(m_results.get(5).toString());
+    	
+    	for (int i=0 ; i<m_resultButtonsIDs.size() ; i++) {
+      	Button resultButton = (Button)findViewById(m_resultButtonsIDs.get(i));
+      	resultButton.setText(m_results.get(i).toString());    		
+    	}
     }
     
     /**
@@ -334,55 +335,18 @@ public class MainActivity extends Activity {
         	ArrayList<Integer> results = doTheMath(numbers, m_randomOperators);
         	// So now I have the results, let's compare them with the randomly
         	// generated ones.
-        	Button resultButton = (Button)findViewById(R.id.Button_result_row1);
         	
         	int errorColor = getResources().getColor(R.color.error_color);
         	int okColor = getResources().getColor(R.color.ok_color);
-        	if (m_results.get(0) == results.get(0)) {
-        		resultButton.getBackground().setColorFilter(okColor, Mode.MULTIPLY);
-        	}
-        	else {
-        		resultButton.getBackground().setColorFilter(errorColor, Mode.MULTIPLY);
-        	}
         	
-        	resultButton = (Button)findViewById(R.id.Button_result_row2);
-        	if (m_results.get(1) == results.get(1)) {
-        		resultButton.getBackground().setColorFilter(okColor, Mode.MULTIPLY);
-        	}
-        	else {
-        		resultButton.getBackground().setColorFilter(errorColor, Mode.MULTIPLY);
-        	}
-        	
-        	resultButton = (Button)findViewById(R.id.Button_result_row3);
-        	if (m_results.get(2) == results.get(2)) {
-        		resultButton.getBackground().setColorFilter(okColor, Mode.MULTIPLY);
-        	}
-        	else {
-        		resultButton.getBackground().setColorFilter(errorColor, Mode.MULTIPLY);
-        	}
-
-        	resultButton = (Button)findViewById(R.id.Button_result_column1);
-        	if (m_results.get(3) == results.get(3)) {
-        		resultButton.getBackground().setColorFilter(okColor, Mode.MULTIPLY);
-        	}
-        	else {
-        		resultButton.getBackground().setColorFilter(errorColor, Mode.MULTIPLY);
-        	}
-
-        	resultButton = (Button)findViewById(R.id.Button_result_column2);
-        	if (m_results.get(4) == results.get(4)) {
-        		resultButton.getBackground().setColorFilter(okColor, Mode.MULTIPLY);
-        	}
-        	else {
-        		resultButton.getBackground().setColorFilter(errorColor, Mode.MULTIPLY);
-        	}
-
-        	resultButton = (Button)findViewById(R.id.Button_result_column3);
-        	if (m_results.get(5) == results.get(5)) {
-        		resultButton.getBackground().setColorFilter(okColor, Mode.MULTIPLY);
-        	}
-        	else {
-        		resultButton.getBackground().setColorFilter(errorColor, Mode.MULTIPLY);
+        	for (int i=0 ; i<m_resultButtonsIDs.size() ; i++) {
+          	Button resultButton = (Button)findViewById(m_resultButtonsIDs.get(i));
+          	if (m_results.get(i) == results.get(i)) {
+          		resultButton.getBackground().setColorFilter(okColor, Mode.MULTIPLY);
+          	}
+          	else {
+          		resultButton.getBackground().setColorFilter(errorColor, Mode.MULTIPLY);
+          	}        		
         	}
         }
  
