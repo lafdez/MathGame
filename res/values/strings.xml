@@ -30,5 +30,6 @@
     <string name="on_click_keypad">onClickKeypad</string>
     <color name="error_color">#ff3434</color>
     <color name="ok_color">#34ff34</color>
+    <string name="menu_solve">Solve</string>
     
 </resources>

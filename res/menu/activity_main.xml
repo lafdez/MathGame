@@ -3,4 +3,5 @@
         android:title="@string/menu_settings"
         android:orderInCategory="100" android:visible="true" android:titleCondensed="@string/menu_settings"/>
     <item android:id="@+id/menu_new" android:title="@string/menu_new" android:visible="true" android:titleCondensed="@string/menu_new"></item>
+    <item android:id="@+id/menu_solve" android:title="@string/menu_solve" android:titleCondensed="@string/menu_solve" android:visible="true"></item>
 </menu>

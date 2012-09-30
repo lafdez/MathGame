@@ -91,6 +91,7 @@ public final class R {
         public static final int MainLayout=0x7f0a0000;
         public static final int menu_new=0x7f0a003f;
         public static final int menu_settings=0x7f0a003e;
+        public static final int menu_solve=0x7f0a0040;
     }
     public static final class layout {
         public static final int activity_keypad=0x7f030000;
@@ -110,6 +111,7 @@ public final class R {
         public static final int button_label_times=0x7f050008;
         public static final int menu_new=0x7f050001;
         public static final int menu_settings=0x7f050003;
+        public static final int menu_solve=0x7f050017;
         public static final int number_eight=0x7f050014;
         public static final int number_five=0x7f050011;
         public static final int number_four=0x7f050010;
