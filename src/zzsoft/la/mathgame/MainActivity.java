@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
     }
     
     /**
-     * 
+     * Fill the board with the solution.
      */
     private void fillBoardWithSolution() {
       TableLayout tl = (TableLayout)findViewById(R.id.MainLayout);
@@ -194,8 +194,8 @@ public class MainActivity extends Activity {
     }
     
     /**
-     * 
-     * @return
+     * This method will get the numbers choosen by the user.
+     * @return the numbers choosen by the user in the same format than m_results
      */
     public ArrayList<ArrayList<Integer>> getNumbersFromBoard() {
       TableLayout tl = (TableLayout)findViewById(R.id.MainLayout);
@@ -398,13 +398,20 @@ public class MainActivity extends Activity {
         }
     }
     
+    /**
+     * Check if the results are correct. If the result for an operation is wrong
+     * the background color of the button will be change to red. It will change
+     * to green otherwise.
+     * @param results The results obtained using the numbers choosen by the user.
+     */
     private void checkResults(ArrayList<Integer> results) {
     	int errorColor = getResources().getColor(R.color.error_color);
     	int okColor = getResources().getColor(R.color.ok_color);
     	
     	for (int i=0 ; i<m_resultButtonsIDs.size() ; i++) {
       	Button resultButton = (Button)findViewById(m_resultButtonsIDs.get(i));
-      	if (results != null && m_results.get(i) == results.get(i)) {
+      	if (results != null 
+      			&& (m_results.get(i).intValue() == results.get(i).intValue())) {
       		resultButton.getBackground().setColorFilter(okColor, Mode.MULTIPLY);
       	}
       	else {
