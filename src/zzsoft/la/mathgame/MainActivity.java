@@ -163,7 +163,7 @@ public class MainActivity extends Activity {
       			// The button contains a sign label
       			CharSequence charSeq = button.getText();
       			String str = charSeq.toString();
-      			if (str != null && !str.isEmpty() && isAnOperator(str.charAt(0))) {
+      			if (str != null && str.length() > 0 && isAnOperator(str.charAt(0))) {
       				String strAux = getAnOperator();
       				rowOfOperators.add(strAux.charAt(0));
       				button.setText(strAux);
