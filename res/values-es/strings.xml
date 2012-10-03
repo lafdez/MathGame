@@ -1,0 +1,35 @@
+<resources>
+
+    <string name="app_name">MathGame</string>
+    <string name="menu_new">Nuevo</string>
+    <string name="title_activity_main">MathGame</string>
+    <string name="menu_settings">Configuración</string>
+    <string name="button_label"/>
+    <string name="button_label_equal">=</string>
+    <string name="button_label_plus">+</string>
+    <string name="button_label_minus">-</string>
+    <string name="button_label_times">×</string>
+    <string name="button_label_division">÷</string>
+    <string-array name="array_operators">
+        <item >+</item>
+        <item >-</item>
+        <item >×</item>
+    </string-array>
+    <string name="button_label_operator_init">#</string>
+    <string name="on_click">onClick</string>
+    <string name="number_zero">0</string>
+    <string name="number_one">1</string>
+    <string name="number_two">2</string>
+    <string name="number_three">3</string>
+    <string name="number_four">4</string>
+    <string name="number_five">5</string>
+    <string name="number_six">6</string>
+    <string name="number_seven">7</string>
+    <string name="number_eight">8</string>
+    <string name="number_nine">9</string>
+    <string name="on_click_keypad">onClickKeypad</string>
+    <color name="error_color">#ff3434</color>
+    <color name="ok_color">#34ff34</color>
+    <string name="menu_solve">Resolver</string>
+    
+</resources>
